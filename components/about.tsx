@@ -37,7 +37,7 @@ export function About() {
             {/* Text Overlay (Driving Regional Excellence) */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <p className="text-white/90 font-semibold text-lg">Established 2009</p>
+                <p className="text-white/90 font-semibold text-lg">Established 2023</p>
                 {/* Accent color for highlight over the image */}
                 <p className="text-3xl font-extrabold mt-2 tracking-wide drop-shadow-lg" style={{ color: accentColor }}>
                   Driving Regional Excellence
