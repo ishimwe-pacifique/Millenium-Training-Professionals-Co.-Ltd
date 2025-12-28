@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGODB_URI = 'mongodb+srv://pacishimwe150_db_user:CXalry2RVFWaWix0@cluster0.lhfbogk.mongodb.net/?appName=Cluster0';
+const MONGODB_URI = 'mongodb+srv://pacishimwe150_db_user:Ishimwe%4025517@cluster0.lhfbogk.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0';
 
 const EventSchema = new mongoose.Schema({
   title: {
