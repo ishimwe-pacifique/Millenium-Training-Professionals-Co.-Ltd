@@ -33,7 +33,15 @@ export default function EventsPage() {
       const response = await fetch('/api/events');
       const data = await response.json();
       if (data.success) {
-        setEvents(data.data.filter((event: Event) => event.status === 'upcoming'));
+        // Show all events, sorted by status priority then date
+        const allEvents = data.data.sort((a: Event, b: Event) => {
+          const statusOrder = { 'upcoming': 1, 'ongoing': 2, 'completed': 3 };
+          if (statusOrder[a.status as keyof typeof statusOrder] !== statusOrder[b.status as keyof typeof statusOrder]) {
+            return statusOrder[a.status as keyof typeof statusOrder] - statusOrder[b.status as keyof typeof statusOrder];
+          }
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+        setEvents(allEvents);
       }
     } catch (error) {
       console.error('Failed to fetch events:', error);
@@ -63,9 +71,9 @@ export default function EventsPage() {
       <div className="bg-[#004D40] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Upcoming Events & Training</h1>
+            <h1 className="text-4xl font-bold mb-4">All Events & Training</h1>
             <p className="text-xl text-green-100 max-w-3xl mx-auto">
-              Join our upcoming training programs and community events designed to enhance your skills and connect with like-minded professionals.
+              Explore all our training programs and community events - upcoming, ongoing, and completed.
             </p>
           </div>
         </div>
@@ -102,8 +110,8 @@ export default function EventsPage() {
             <h3 className="text-xl font-semibold text-gray-600 mb-2">No Events Found</h3>
             <p className="text-gray-500">
               {filter === 'all' 
-                ? 'No upcoming events at the moment. Check back soon!'
-                : `No upcoming ${filter === 'training' ? 'training programs' : 'community events'} at the moment.`
+                ? 'No events available at the moment. Check back soon!'
+                : `No ${filter === 'training' ? 'training programs' : 'community events'} found.`
               }
             </p>
           </div>
@@ -120,7 +128,11 @@ export default function EventsPage() {
                     }`}>
                       {event.type === 'training' ? 'Training Program' : 'Community Event'}
                     </span>
-                    <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded-full">
+                    <span className="px-2 py-1 text-xs rounded-full ${
+                      event.status === 'upcoming' ? 'bg-blue-100 text-blue-800' :
+                      event.status === 'ongoing' ? 'bg-green-100 text-green-800' :
+                      'bg-gray-100 text-gray-800'
+                    }">
                       {event.status}
                     </span>
                   </div>
