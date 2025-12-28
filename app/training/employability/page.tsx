@@ -1,23 +1,23 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { CheckCircle, Users, Clock, Award } from "lucide-react"
+import { CheckCircle, User, FileText, MessageCircle } from "lucide-react"
 
 const PRIMARY_COLOR = "#004D40";
 
-export default function ProjectManagementPage() {
+export default function EmployabilityPage() {
   const features = [
-    "Project Planning & Initiation",
-    "Risk Management & Mitigation", 
-    "Team Leadership & Communication",
-    "Budget & Resource Management",
-    "Quality Assurance & Control",
-    "Project Closure & Evaluation"
+    "Professional Skills Development",
+    "Resume & CV Writing", 
+    "Interview Preparation",
+    "Career Planning & Goal Setting",
+    "Networking Strategies",
+    "Personal Branding"
   ];
 
   const benefits = [
-    { icon: Users, title: "Team Collaboration", description: "Enhanced team coordination and communication skills" },
-    { icon: Clock, title: "Time Management", description: "Efficient project scheduling and deadline management" },
-    { icon: Award, title: "Quality Delivery", description: "Consistent delivery of high-quality project outcomes" }
+    { icon: User, title: "Professional Growth", description: "Build essential workplace skills and competencies" },
+    { icon: FileText, title: "Strong Profile", description: "Create compelling professional profiles and portfolios" },
+    { icon: MessageCircle, title: "Interview Success", description: "Master job interview techniques and build confidence" }
   ];
 
   return (
@@ -30,11 +30,11 @@ export default function ProjectManagementPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: PRIMARY_COLOR }}>
-                Project Management Excellence
+                Transition Employability
               </h1>
               <p className="text-lg text-gray-600 mb-8">
-                Master the art of successful project delivery with our comprehensive project management training program. 
-                Learn industry-standard methodologies and best practices.
+                Prepare for successful career transitions with comprehensive employability skills training. 
+                Build the skills and confidence needed to secure your next career opportunity.
               </p>
               <button className="text-white px-8 py-3 rounded-lg hover:opacity-90 transition-all font-semibold" style={{ backgroundColor: PRIMARY_COLOR }}>
                 Enroll Now
@@ -42,8 +42,8 @@ export default function ProjectManagementPage() {
             </div>
             <div className="relative h-96 rounded-xl overflow-hidden" style={{ backgroundColor: `${PRIMARY_COLOR}20` }}>
               <img
-                src="/images/project-management-training.jpg"
-                alt="Project Management Training"
+                src="/images/employability-training.jpg"
+                alt="Employability Training"
                 className="w-full h-full object-cover"
               />
             </div>

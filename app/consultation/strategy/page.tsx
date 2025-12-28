@@ -1,23 +1,23 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { CheckCircle, Users, Clock, Award } from "lucide-react"
+import { CheckCircle, Compass, Target, TrendingUp } from "lucide-react"
 
 const PRIMARY_COLOR = "#004D40";
 
-export default function ProjectManagementPage() {
+export default function StrategyPage() {
   const features = [
-    "Project Planning & Initiation",
-    "Risk Management & Mitigation", 
-    "Team Leadership & Communication",
-    "Budget & Resource Management",
-    "Quality Assurance & Control",
-    "Project Closure & Evaluation"
+    "Strategic Planning & Vision",
+    "Market Entry Strategies", 
+    "Growth & Expansion Planning",
+    "Digital Transformation",
+    "Competitive Analysis",
+    "Risk Assessment & Mitigation"
   ];
 
   const benefits = [
-    { icon: Users, title: "Team Collaboration", description: "Enhanced team coordination and communication skills" },
-    { icon: Clock, title: "Time Management", description: "Efficient project scheduling and deadline management" },
-    { icon: Award, title: "Quality Delivery", description: "Consistent delivery of high-quality project outcomes" }
+    { icon: Compass, title: "Strategic Direction", description: "Clear long-term vision and strategic roadmap development" },
+    { icon: Target, title: "Market Success", description: "Effective market entry and positioning strategies" },
+    { icon: TrendingUp, title: "Sustainable Growth", description: "Scalable business growth and expansion strategies" }
   ];
 
   return (
@@ -30,20 +30,20 @@ export default function ProjectManagementPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: PRIMARY_COLOR }}>
-                Project Management Excellence
+                Strategy Consulting
               </h1>
               <p className="text-lg text-gray-600 mb-8">
-                Master the art of successful project delivery with our comprehensive project management training program. 
-                Learn industry-standard methodologies and best practices.
+                Navigate complex business challenges with strategic consulting expertise. 
+                Develop comprehensive strategies for sustainable growth and competitive advantage.
               </p>
               <button className="text-white px-8 py-3 rounded-lg hover:opacity-90 transition-all font-semibold" style={{ backgroundColor: PRIMARY_COLOR }}>
-                Enroll Now
+                Get Consultation
               </button>
             </div>
             <div className="relative h-96 rounded-xl overflow-hidden" style={{ backgroundColor: `${PRIMARY_COLOR}20` }}>
               <img
-                src="/images/project-management-training.jpg"
-                alt="Project Management Training"
+                src="/images/strategy-consulting.jpg"
+                alt="Strategy Consulting"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -55,7 +55,7 @@ export default function ProjectManagementPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12" style={{ color: PRIMARY_COLOR }}>
-            What You'll Learn
+            Strategic Services
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
@@ -72,7 +72,7 @@ export default function ProjectManagementPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12" style={{ color: PRIMARY_COLOR }}>
-            Program Benefits
+            Strategic Advantages
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => {

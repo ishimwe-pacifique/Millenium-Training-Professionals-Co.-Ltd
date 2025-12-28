@@ -1,23 +1,23 @@
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { CheckCircle, Users, Clock, Award } from "lucide-react"
+import { CheckCircle, Briefcase, Target, Users } from "lucide-react"
 
 const PRIMARY_COLOR = "#004D40";
 
-export default function ProjectManagementPage() {
+export default function CareerCreationPage() {
   const features = [
-    "Project Planning & Initiation",
-    "Risk Management & Mitigation", 
-    "Team Leadership & Communication",
-    "Budget & Resource Management",
-    "Quality Assurance & Control",
-    "Project Closure & Evaluation"
+    "Entrepreneurship Fundamentals",
+    "Business Plan Development", 
+    "Market Research & Analysis",
+    "Professional Networking",
+    "Skill Gap Analysis",
+    "Career Path Planning"
   ];
 
   const benefits = [
-    { icon: Users, title: "Team Collaboration", description: "Enhanced team coordination and communication skills" },
-    { icon: Clock, title: "Time Management", description: "Efficient project scheduling and deadline management" },
-    { icon: Award, title: "Quality Delivery", description: "Consistent delivery of high-quality project outcomes" }
+    { icon: Briefcase, title: "Entrepreneurship", description: "Start and grow your own business venture" },
+    { icon: Target, title: "Market Opportunities", description: "Identify emerging career and business opportunities" },
+    { icon: Users, title: "Professional Networks", description: "Build valuable professional networks and connections" }
   ];
 
   return (
@@ -30,11 +30,11 @@ export default function ProjectManagementPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: PRIMARY_COLOR }}>
-                Project Management Excellence
+                Jobs & Career Creation
               </h1>
               <p className="text-lg text-gray-600 mb-8">
-                Master the art of successful project delivery with our comprehensive project management training program. 
-                Learn industry-standard methodologies and best practices.
+                Create your own career path and discover new opportunities in the evolving job market. 
+                Learn entrepreneurship skills and innovative approaches to career development.
               </p>
               <button className="text-white px-8 py-3 rounded-lg hover:opacity-90 transition-all font-semibold" style={{ backgroundColor: PRIMARY_COLOR }}>
                 Enroll Now
@@ -42,8 +42,8 @@ export default function ProjectManagementPage() {
             </div>
             <div className="relative h-96 rounded-xl overflow-hidden" style={{ backgroundColor: `${PRIMARY_COLOR}20` }}>
               <img
-                src="/images/project-management-training.jpg"
-                alt="Project Management Training"
+                src="/images/career-creation-training.jpg"
+                alt="Career Creation Training"
                 className="w-full h-full object-cover"
               />
             </div>

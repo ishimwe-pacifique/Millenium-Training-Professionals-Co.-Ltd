@@ -255,6 +255,9 @@ export function Header() {
           <Link href="/contact" className={`text-foreground hover:text-[${PRIMARY_COLOR}] transition-colors font-medium px-3 py-2`}>
             Contact
           </Link>
+          <Link href="/admin/login" className={`text-foreground hover:text-[${PRIMARY_COLOR}] transition-colors font-medium px-3 py-2`}>
+            Admin
+          </Link>
           {/* Enrollment Button (Using deep green for button background) */}
           <button className={`${BUTTON_BG_COLOR} ${BUTTON_HOVER_BG} text-white backdrop-blur-sm px-6 py-2 rounded-lg transition-colors font-semibold ml-2 shadow-md`}>
             Enroll Now
@@ -552,6 +555,13 @@ export function Header() {
                 className={`block text-foreground hover:text-[${PRIMARY_COLOR}] transition-colors py-2 font-medium`}
               >
                 Contact
+              </Link>
+              <Link
+                href="/admin/login"
+                onClick={handleNavClick}
+                className={`block text-foreground hover:text-[${PRIMARY_COLOR}] transition-colors py-2 font-medium`}
+              >
+                Admin
               </Link>
               {/* Enrollment Button - Mobile (Transparent, using new green) */}
               <button className={`${BUTTON_BG_COLOR} ${BUTTON_HOVER_BG} text-white backdrop-blur-sm px-6 py-2 rounded-lg transition-colors font-medium mt-4 shadow-md`}>
