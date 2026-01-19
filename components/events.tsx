@@ -3,8 +3,11 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react';
+import { Calendar, MapPin, Users, ArrowRight, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
 interface Event {
@@ -47,10 +50,19 @@ const EventSkeleton = () => (
 export function Events() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [registering, setRegistering] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
+  const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
+  const [registrationForm, setRegistrationForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
 
   useEffect(() => {
     fetchEvents();
-    // Refresh events every 30 seconds to get new events
     const interval = setInterval(fetchEvents, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -58,28 +70,21 @@ export function Events() {
   const fetchEvents = async () => {
     try {
       const response = await fetch('/api/events', {
-        cache: 'no-store', // Always fetch fresh data
+        cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache'
         }
       });
       const data = await response.json();
       if (data.success) {
-        console.log('Total events from API:', data.data.length);
-        
-        // Show all events (upcoming, ongoing, completed)
         const allEvents = data.data
           .sort((a: Event, b: Event) => {
-            // Sort by status priority: upcoming first, then ongoing, then completed
             const statusOrder = { 'upcoming': 1, 'ongoing': 2, 'completed': 3 };
             if (statusOrder[a.status as keyof typeof statusOrder] !== statusOrder[b.status as keyof typeof statusOrder]) {
               return statusOrder[a.status as keyof typeof statusOrder] - statusOrder[b.status as keyof typeof statusOrder];
             }
-            // Within same status, sort by date
             return new Date(a.date).getTime() - new Date(b.date).getTime();
           });
-        
-        console.log('All events displayed:', allEvents.length);
         setEvents(allEvents);
       }
     } catch (error) {
@@ -87,6 +92,57 @@ export function Events() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleRegister = (event: Event) => {
+    setSelectedEvent(event);
+    setIsRegisterDialogOpen(true);
+  };
+
+  const submitRegistration = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setRegistering(true);
+
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventId: selectedEvent?._id,
+          eventTitle: selectedEvent?.title,
+          ...registrationForm
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setIsRegisterDialogOpen(false);
+        setRegistrationForm({ name: '', email: '', phone: '', message: '' });
+        
+        if (selectedEvent && selectedEvent.price > 0) {
+          setIsPaymentDialogOpen(true);
+        } else {
+          alert('Registration successful! Your registration is confirmed.');
+        }
+        
+        fetchEvents();
+      } else {
+        alert(data.error || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert('Registration failed. Please try again.');
+    } finally {
+      setRegistering(false);
+    }
+  };
+
+  const getButtonText = (event: Event) => {
+    if (event.status === 'completed') return 'Event Completed';
+    if (event.maxParticipants > 0 && event.registeredParticipants >= event.maxParticipants) return 'Event Full';
+    if (event.price === 0) return 'Register Free';
+    return `Register - ${event.price.toLocaleString()} RWF`;
   };
 
   return (
@@ -171,13 +227,148 @@ export function Events() {
                         <span>{event.registeredParticipants}/{event.maxParticipants || '∞'}</span>
                       </div>
                       <div className="font-semibold text-green-600">
-                        {event.price === 0 ? 'FREE' : `$${event.price}`}
+                        {event.price === 0 ? 'FREE' : `${event.price.toLocaleString()} RWF`}
                       </div>
                     </div>
 
-                    <Button className="w-full bg-[#004D40] hover:bg-[#004D40]/90">
-                      {event.price === 0 ? 'Register Free' : 'Register Now'}
-                    </Button>
+                    <Dialog open={isRegisterDialogOpen} onOpenChange={setIsRegisterDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button 
+                          className="w-full bg-[#004D40] hover:bg-[#004D40]/90"
+                          onClick={() => handleRegister(event)}
+                          disabled={event.status === 'completed' || (event.maxParticipants > 0 && event.registeredParticipants >= event.maxParticipants)}
+                        >
+                          <UserPlus className="h-4 w-4 mr-2" />
+                          {getButtonText(event)}
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Register for Event</DialogTitle>
+                        </DialogHeader>
+                        {selectedEvent && (
+                          <div className="space-y-4">
+                            <div className="bg-gray-50 p-3 rounded-lg">
+                              <h3 className="font-semibold">{selectedEvent.title}</h3>
+                              <p className="text-sm text-gray-600">
+                                {new Date(selectedEvent.date).toLocaleDateString()} • {selectedEvent.location}
+                              </p>
+                              <p className="text-sm font-semibold text-green-600">
+                                {selectedEvent.price === 0 ? 'FREE' : `${selectedEvent.price.toLocaleString()} RWF`}
+                              </p>
+                            </div>
+                            
+                            <form onSubmit={submitRegistration} className="space-y-4">
+                              <Input
+                                placeholder="Full Name *"
+                                value={registrationForm.name}
+                                onChange={(e) => setRegistrationForm({...registrationForm, name: e.target.value})}
+                                required
+                              />
+                              <Input
+                                type="email"
+                                placeholder="Email Address *"
+                                value={registrationForm.email}
+                                onChange={(e) => setRegistrationForm({...registrationForm, email: e.target.value})}
+                                required
+                              />
+                              <Input
+                                type="tel"
+                                placeholder="Phone Number *"
+                                value={registrationForm.phone}
+                                onChange={(e) => setRegistrationForm({...registrationForm, phone: e.target.value})}
+                                required
+                              />
+                              <Textarea
+                                placeholder="Additional Message (Optional)"
+                                value={registrationForm.message}
+                                onChange={(e) => setRegistrationForm({...registrationForm, message: e.target.value})}
+                                rows={3}
+                              />
+                              <Button type="submit" className="w-full" disabled={registering}>
+                                {registering ? 'Registering...' : 'Complete Registration'}
+                              </Button>
+                            </form>
+                          </div>
+                        )}
+                      </DialogContent>
+                    </Dialog>
+
+                    <Dialog open={isPaymentDialogOpen} onOpenChange={setIsPaymentDialogOpen}>
+                      <DialogContent className="max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Payment Instructions</DialogTitle>
+                        </DialogHeader>
+                        {selectedEvent && (
+                          <div className="space-y-4">
+                            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                              <h3 className="font-semibold text-green-800 mb-2">Registration Successful!</h3>
+                              <p className="text-sm text-green-700">
+                                Your registration for "{selectedEvent.title}" has been submitted and is currently <strong>PENDING</strong> payment.
+                              </p>
+                            </div>
+                            
+                            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                              <h4 className="font-semibold text-blue-800 mb-3">Payment Details</h4>
+                              <div className="space-y-2 text-sm">
+                                <div className="flex justify-between">
+                                  <span>Event:</span>
+                                  <span className="font-medium">{selectedEvent.title}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Amount:</span>
+                                  <span className="font-bold text-lg">{selectedEvent.price.toLocaleString()} RWF</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                              <h4 className="font-semibold text-yellow-800 mb-3">How to Pay</h4>
+                              <div className="space-y-3 text-sm text-yellow-700">
+                                <div>
+                                  <p className="font-medium mb-1">Mobile Money Payment:</p>
+                                  <div className="bg-white p-3 rounded border">
+                                    <p className="font-mono text-lg text-center text-gray-800">
+                                      *182*1*1*0796691454#
+                                    </p>
+                                  </div>
+                                  <p className="text-xs mt-1">Then enter amount: <strong>{selectedEvent.price.toLocaleString()} RWF</strong></p>
+                                </div>
+                                
+                                <div>
+                                  <p className="font-medium mb-1">Payment Number:</p>
+                                  <p className="font-mono text-lg">0796 691 454</p>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="bg-gray-50 p-4 rounded-lg">
+                              <h4 className="font-semibold text-gray-800 mb-2">Next Steps:</h4>
+                              <ol className="text-sm text-gray-700 space-y-1 list-decimal list-inside">
+                                <li>Complete payment using the instructions above</li>
+                                <li>Your registration will be confirmed by admin after payment</li>
+                                <li>You will receive confirmation via email/phone</li>
+                              </ol>
+                            </div>
+                            
+                            <div className="bg-blue-50 p-3 rounded-lg">
+                              <p className="text-sm text-blue-700">
+                                <strong>Need Help?</strong><br/>
+                                Phone: 0796 691 454<br/>
+                                Email: milleniumtrainers@gmail.com
+                              </p>
+                            </div>
+                            
+                            <Button 
+                              onClick={() => setIsPaymentDialogOpen(false)} 
+                              className="w-full"
+                            >
+                              I Understand
+                            </Button>
+                          </div>
+                        )}
+                      </DialogContent>
+                    </Dialog>
                   </CardContent>
                 </Card>
               ))}

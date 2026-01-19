@@ -163,16 +163,22 @@ export default function AdminDashboard() {
                     Create New Event
                   </Button>
                 </Link>
+                <Link href="/admin/registrations" className="block">
+                  <Button variant="outline" className="w-full justify-start">
+                    <Users className="h-4 w-4 mr-2" />
+                    View Registrations
+                  </Button>
+                </Link>
                 <Link href="/admin/events" className="block">
                   <Button variant="outline" className="w-full justify-start">
                     <Calendar className="h-4 w-4 mr-2" />
                     Manage Events
                   </Button>
                 </Link>
-                <Link href="/admin/events" className="block">
+                <Link href="/admin/registrations" className="block">
                   <Button variant="outline" className="w-full justify-start">
                     <Users className="h-4 w-4 mr-2" />
-                    View Registrations
+                    Event Registrations
                   </Button>
                 </Link>
               </div>

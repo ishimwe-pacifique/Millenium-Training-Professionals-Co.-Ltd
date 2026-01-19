@@ -137,30 +137,21 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
+          {/* Contact & Support */}
           <div>
-            <h4 className="font-bold mb-4">Connect With Us</h4>
-            <div className="flex gap-3 mb-4">
-              <a href="#" className="hover:opacity-80 transition-opacity" aria-label="Facebook">
-                <Facebook size={20} />
-              </a>
-              <a href="#" className="hover:opacity-80 transition-opacity" aria-label="LinkedIn">
-                <Linkedin size={20} />
-              </a>
-              <a href="#" className="hover:opacity-80 transition-opacity" aria-label="Instagram">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="hover:opacity-80 transition-opacity" aria-label="Twitter">
-                <Twitter size={20} />
-              </a>
+            <h4 className="font-bold mb-4">Contact & Support</h4>
+            <div className="space-y-3 text-sm text-gray-200">
+              <div>
+                <p className="font-medium mb-1">For Enquiries & Help:</p>
+                <p>📞 0796 691 454</p>
+                <p>✉️ milleniumtrainers@gmail.com</p>
+              </div>
+              <div>
+                <p className="font-medium mb-1">Payment Support:</p>
+                <p>Mobile Money: 0796 691 454</p>
+                <p className="text-xs text-gray-300">*182*1*1*0796691454#</p>
+              </div>
             </div>
-            <a
-              href="mailto:info@millenium.rw"
-              className="flex items-center gap-2 text-sm hover:opacity-100 transition-opacity"
-            >
-              <Mail size={16} />
-              info@millenium.rw
-            </a>
           </div>
         </div>
 

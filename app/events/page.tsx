@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Users, Clock } from 'lucide-react';
+import EnrollmentForm from '@/components/EnrollmentForm';
 
 interface Event {
   _id: string;
@@ -23,6 +24,8 @@ export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'training' | 'event'>('all');
+  const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   useEffect(() => {
     fetchEvents();
@@ -54,6 +57,11 @@ export default function EventsPage() {
     if (filter === 'all') return true;
     return event.type === filter;
   });
+
+  const handleRegister = (event: Event) => {
+    setSelectedEvent(event);
+    setIsEnrollmentOpen(true);
+  };
 
   if (loading) {
     return (
@@ -192,6 +200,7 @@ export default function EventsPage() {
                     <Button 
                       className="flex-1 bg-[#004D40] hover:bg-[#004D40]/90"
                       disabled={event.maxParticipants > 0 && event.registeredParticipants >= event.maxParticipants}
+                      onClick={() => handleRegister(event)}
                     >
                       {event.maxParticipants > 0 && event.registeredParticipants >= event.maxParticipants 
                         ? 'Full' 
@@ -207,6 +216,13 @@ export default function EventsPage() {
             ))}
           </div>
         )}
+        
+        <EnrollmentForm 
+          isOpen={isEnrollmentOpen}
+          onClose={() => setIsEnrollmentOpen(false)}
+          eventTitle={selectedEvent?.title}
+          eventType={selectedEvent?.type}
+        />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Menu, X, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import EnrollmentForm from './EnrollmentForm'
 
 // Deep Forest Green color hex code: #004D40 (Used as the primary color)
 const PRIMARY_COLOR = "#004D40";
@@ -16,6 +17,7 @@ const BUTTON_HOVER_BG = "hover:bg-[#004D40]"; // Solid button hover background
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [isEnrollmentOpen, setIsEnrollmentOpen] = useState(false)
 
   const handleNavClick = () => {
     setIsOpen(false)
@@ -259,8 +261,8 @@ export function Header() {
             Admin
           </Link>
           {/* Enrollment Button (Using deep green for button background) */}
-          <button className={`${BUTTON_BG_COLOR} ${BUTTON_HOVER_BG} text-white backdrop-blur-sm px-6 py-2 rounded-lg transition-colors font-semibold ml-2 shadow-md`}>
-            Enroll Now
+          <button className={`${BUTTON_BG_COLOR} ${BUTTON_HOVER_BG} text-white backdrop-blur-sm px-6 py-2 rounded-lg transition-colors font-semibold ml-2 shadow-md`} onClick={() => setIsEnrollmentOpen(true)}>
+            Register
           </button>
         </div>
 
@@ -564,13 +566,18 @@ export function Header() {
                 Admin
               </Link>
               {/* Enrollment Button - Mobile (Transparent, using new green) */}
-              <button className={`${BUTTON_BG_COLOR} ${BUTTON_HOVER_BG} text-white backdrop-blur-sm px-6 py-2 rounded-lg transition-colors font-medium mt-4 shadow-md`}>
+              <button className={`${BUTTON_BG_COLOR} ${BUTTON_HOVER_BG} text-white backdrop-blur-sm px-6 py-2 rounded-lg transition-colors font-medium mt-4 shadow-md`} onClick={() => setIsEnrollmentOpen(true)}>
                 Enroll Now
               </button>
             </div>
           </div>
         )}
       </nav>
+      
+      <EnrollmentForm 
+        isOpen={isEnrollmentOpen}
+        onClose={() => setIsEnrollmentOpen(false)}
+      />
     </header>
   )
 }
