@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { AlertCircle, CheckCircle } from "lucide-react"
 
@@ -33,21 +32,9 @@ export function ContactForm() {
     setStatus("loading")
 
     try {
-      // Simulate form submission - in production, connect to your backend
       await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      console.log("Form submitted:", formData)
       setStatus("success")
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        subject: "",
-        message: "",
-      })
-
-      // Reset status after 5 seconds
+      setFormData({ name: "", email: "", phone: "", company: "", subject: "", message: "" })
       setTimeout(() => setStatus("idle"), 5000)
     } catch (error) {
       setStatus("error")
@@ -56,87 +43,79 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white border rounded-xl p-8 space-y-6" style={{ borderColor: '#e5e7eb' }}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="bg-white border rounded-2xl p-6 md:p-10 space-y-5 shadow-sm font-sans" style={{ borderColor: '#f3f4f6' }}>
+      {/* Font Loading */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap');
+        .font-display { font-family: 'Montserrat', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+      `}</style>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {/* Name */}
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: PRIMARY_COLOR }}>Full Name *</label>
+        <div className="space-y-1.5">
+          <label className="block text-[10px] font-bold uppercase tracking-widest font-display" style={{ color: PRIMARY_COLOR }}>Full Name *</label>
           <input
             type="text"
             name="name"
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none transition-colors"
-            style={{ borderColor: '#e5e7eb' }}
-            onFocus={(e) => { e.target.style.borderColor = PRIMARY_COLOR; e.target.style.boxShadow = `0 0 0 1px ${PRIMARY_COLOR}` }}
-            onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.boxShadow = 'none' }}
+            className="w-full px-4 py-2.5 text-xs border rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-1 focus:ring-[#004D40] transition-all outline-none border-gray-100"
             placeholder="John Doe"
           />
         </div>
 
         {/* Email */}
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: PRIMARY_COLOR }}>Email Address *</label>
+        <div className="space-y-1.5">
+          <label className="block text-[10px] font-bold uppercase tracking-widest font-display" style={{ color: PRIMARY_COLOR }}>Email Address *</label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none transition-colors"
-            style={{ borderColor: '#e5e7eb' }}
-            onFocus={(e) => { e.target.style.borderColor = PRIMARY_COLOR; e.target.style.boxShadow = `0 0 0 1px ${PRIMARY_COLOR}` }}
-            onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.boxShadow = 'none' }}
+            className="w-full px-4 py-2.5 text-xs border rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-1 focus:ring-[#004D40] transition-all outline-none border-gray-100"
             placeholder="john@example.com"
           />
         </div>
 
         {/* Phone */}
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: PRIMARY_COLOR }}>Phone Number</label>
+        <div className="space-y-1.5">
+          <label className="block text-[10px] font-bold uppercase tracking-widest font-display" style={{ color: PRIMARY_COLOR }}>Phone Number</label>
           <input
             type="tel"
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none transition-colors"
-            style={{ borderColor: '#e5e7eb' }}
-            onFocus={(e) => { e.target.style.borderColor = PRIMARY_COLOR; e.target.style.boxShadow = `0 0 0 1px ${PRIMARY_COLOR}` }}
-            onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.boxShadow = 'none' }}
+            className="w-full px-4 py-2.5 text-xs border rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-1 focus:ring-[#004D40] transition-all outline-none border-gray-100"
             placeholder="+250 767 691 454"
           />
         </div>
 
         {/* Company */}
-        <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: PRIMARY_COLOR }}>Company/Organization</label>
+        <div className="space-y-1.5">
+          <label className="block text-[10px] font-bold uppercase tracking-widest font-display" style={{ color: PRIMARY_COLOR }}>Organization</label>
           <input
             type="text"
             name="company"
             value={formData.company}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none transition-colors"
-            style={{ borderColor: '#e5e7eb' }}
-            onFocus={(e) => { e.target.style.borderColor = PRIMARY_COLOR; e.target.style.boxShadow = `0 0 0 1px ${PRIMARY_COLOR}` }}
-            onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.boxShadow = 'none' }}
+            className="w-full px-4 py-2.5 text-xs border rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-1 focus:ring-[#004D40] transition-all outline-none border-gray-100"
             placeholder="Your Company"
           />
         </div>
       </div>
 
       {/* Subject */}
-      <div>
-        <label className="block text-sm font-medium mb-2" style={{ color: PRIMARY_COLOR }}>Subject *</label>
+      <div className="space-y-1.5">
+        <label className="block text-[10px] font-bold uppercase tracking-widest font-display" style={{ color: PRIMARY_COLOR }}>Subject *</label>
         <select
           name="subject"
           value={formData.subject}
           onChange={handleChange}
           required
-          className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900 focus:outline-none transition-colors"
-          style={{ borderColor: '#e5e7eb' }}
-          onFocus={(e) => { e.target.style.borderColor = PRIMARY_COLOR; e.target.style.boxShadow = `0 0 0 1px ${PRIMARY_COLOR}` }}
-          onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.boxShadow = 'none' }}
+          className="w-full px-4 py-2.5 text-xs border rounded-xl bg-gray-50/50 text-gray-900 focus:bg-white focus:ring-1 focus:ring-[#004D40] transition-all outline-none border-gray-100 appearance-none"
         >
           <option value="">Select a subject...</option>
           <option value="training">Training Programs</option>
@@ -148,40 +127,24 @@ export function ContactForm() {
       </div>
 
       {/* Message */}
-      <div>
-        <label className="block text-sm font-medium mb-2" style={{ color: PRIMARY_COLOR }}>Message *</label>
+      <div className="space-y-1.5">
+        <label className="block text-[10px] font-bold uppercase tracking-widest font-display" style={{ color: PRIMARY_COLOR }}>Message *</label>
         <textarea
           name="message"
           value={formData.message}
           onChange={handleChange}
           required
-          rows={6}
-          className="w-full px-4 py-2 border rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none transition-colors resize-none"
-          style={{ borderColor: '#e5e7eb' }}
-          onFocus={(e) => { e.target.style.borderColor = PRIMARY_COLOR; e.target.style.boxShadow = `0 0 0 1px ${PRIMARY_COLOR}` }}
-          onBlur={(e) => { e.target.style.borderColor = '#e5e7eb'; e.target.style.boxShadow = 'none' }}
+          rows={5}
+          className="w-full px-4 py-3 text-xs border rounded-xl bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-1 focus:ring-[#004D40] transition-all outline-none border-gray-100 resize-none"
           placeholder="Tell us about your training or consulting needs..."
         />
       </div>
 
       {/* Status Messages */}
       {status === "success" && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <CheckCircle size={20} className="text-green-600 flex-shrink-0" />
-          <div>
-            <p className="font-medium text-green-900">Message sent successfully!</p>
-            <p className="text-sm text-green-800">We'll get back to you within 24 hours.</p>
-          </div>
-        </div>
-      )}
-
-      {status === "error" && (
-        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <AlertCircle size={20} className="text-red-600 flex-shrink-0" />
-          <div>
-            <p className="font-medium text-red-900">Error sending message</p>
-            <p className="text-sm text-red-800">{errorMessage}</p>
-          </div>
+        <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-100 rounded-xl">
+          <CheckCircle size={16} className="text-green-600 flex-shrink-0" />
+          <div className="text-[11px] font-medium text-green-800">Message sent! We'll respond within 24 hours.</div>
         </div>
       )}
 
@@ -189,13 +152,15 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full text-white px-8 py-3 rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-semibold"
+        className="w-full text-white px-8 py-3.5 rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-bold text-[11px] uppercase tracking-[0.2em] shadow-lg active:scale-[0.98]"
         style={{ backgroundColor: PRIMARY_COLOR }}
       >
-        {status === "loading" ? "Sending..." : "Send Message"}
+        {status === "loading" ? "Sending..." : "Send Inquiry"}
       </button>
 
-      <p className="text-xs text-gray-500">* Required fields. We'll respond to your inquiry within 24 hours.</p>
+      <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wide text-center">
+        * Protected by secure encryption. Typical response time: 24h.
+      </p>
     </form>
   )
 }

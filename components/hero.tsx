@@ -1,151 +1,131 @@
 "use client"
 
-import { ArrowRight } from "lucide-react"
 import { useState, useEffect } from "react"
+import { Play, ArrowRight, Star, Users, Globe, Landmark } from "lucide-react"
 
 export function Hero() {
-  const backgroundImages = [
-    "/images/norrsken-kigali-house-mass-design-group_2.jpg",
-    "/professional-training-conference-in-rwanda-with-di.jpg",
-    "/african-business-professionals-in-modern-office-rw.jpg",
-  ]
-
-  const PRIMARY_COLOR = "#004D40";
-  const ACCENT_COLOR = "#66BB6A";
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const [count, setCount] = useState(0)
+  const YOUTUBE_ID = "bZylniUVzfE"
+  const ACCENT_COLOR = "#66BB6A"
+  const PRIMARY_COLOR = "#004D40"
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length)
-    }, 8000)
-    return () => clearInterval(interval)
-  }, [backgroundImages.length])
+    if (count < 98) {
+      const timer = setTimeout(() => setCount(count + 1), 20)
+      return () => clearTimeout(timer)
+    }
+  }, [count])
 
   return (
-    <section
-      className="relative py-20 md:py-32 overflow-hidden min-h-screen flex items-center"
-      style={{
-        backgroundImage: `url('${backgroundImages[currentImageIndex]}')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-        transition: "background-image 1.5s ease-in-out",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <div className="space-y-6 hero-content">
-            {/* Accent tag uses primary green with transparency */}
-            <div className="inline-block rounded-full px-4 py-2 backdrop-blur-sm" style={{ backgroundColor: `${PRIMARY_COLOR}66`, border: `1px solid ${PRIMARY_COLOR}99` }}>
-              <span className="text-sm font-medium text-white">Professional Excellence in Africa</span>
+    <section className="relative min-h-[70vh] flex items-center bg-white overflow-hidden font-sans">
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap');
+        .font-display { font-family: 'Montserrat', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+      `}</style>
+
+      {/* Subtle Background Elements */}
+      <div className="absolute top-[-5%] right-[-2%] w-[45%] h-[110%] bg-[#004D40]/5 -skew-x-12 transform origin-top z-0"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          
+          {/* Content Wing */}
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-3 shadow-sm">
+           
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
-              {/* Highlighted text uses the bright green accent color */}
-              Transform Your <span style={{ color: ACCENT_COLOR }}>Professional Excellence</span>
+            <h1 className="text-[#004D40] text-4xl md:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight leading-[1.05]">
+              Transform Your <br />
+              <span style={{ color: ACCENT_COLOR }} className="relative inline-block">
+                Professional Excellence
+                <svg className="absolute -bottom-1 left-0 w-full" height="6" viewBox="0 0 200 6" fill="none">
+                  <path d="M2 4C40 1 160 1 198 4" stroke={ACCENT_COLOR} strokeWidth="3" strokeLinecap="round"/>
+                </svg>
+              </span>
             </h1>
 
-            <p className="text-lg text-gray-100 max-w-lg drop-shadow-md">
-              Millennium Training Professionals delivers world-class corporate training, executive coaching, and
-              consulting services to help organizations thrive and professionals grow.
+            <p className="text-gray-500 text-sm md:text-base font-medium leading-relaxed max-w-lg font-sans opacity-85">
+              World-class corporate training and executive coaching built for 
+              measurable organizational success across Rwanda and the region.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              {/* Primary Button: Deep Green background */}
-              <button className="text-white px-8 py-3 rounded-lg transition-all font-semibold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:opacity-90" style={{ backgroundColor: PRIMARY_COLOR }}>
-                Explore Programs
-                <ArrowRight size={20} />
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <button className="bg-[#004D40] group px-8 py-3.5 rounded-xl hover:bg-[#004D40]/90 transition-all font-display font-bold text-[11px] uppercase tracking-widest text-white flex items-center justify-center gap-3 shadow-xl shadow-[#004D40]/20 active:scale-95">
+                Explore Programs <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </button>
-              {/* Secondary Button: White border, white text */}
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg hover:bg-white/10 transition-colors font-semibold backdrop-blur-sm">
-                Learn More
+              
+              <button 
+                onClick={() => setIsVideoPlaying(true)}
+                className="bg-white px-8 py-3.5 rounded-xl hover:bg-gray-50 transition-all font-display font-bold text-[11px] uppercase tracking-widest border border-gray-200 flex items-center justify-center gap-3 shadow-sm active:scale-95 text-[#004D40]"
+              >
+                <Play size={14} className="text-[#004D40] fill-[#004D40]" /> Watch Impact
               </button>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-8 pt-8 border-t border-white/20">
-              {/* Stats - Text Accent Color (500+) */}
-              <div>
-                <div className="text-3xl font-bold" style={{ color: ACCENT_COLOR }}>500+</div>
-                <p className="text-sm text-gray-200">Professionals Trained</p>
+            {/* Geographic Markers */}
+            <div className="flex items-center gap-6 pt-6 border-t border-gray-100 w-fit">
+              <div className="flex items-center gap-2 opacity-50">
+                <Landmark size={16} className="text-[#004D40]" />
+                <span className="text-[9px] font-bold uppercase font-display tracking-widest text-[#004D40]">Kigali HQ</span>
               </div>
-              {/* Stats - Text Accent Color (15+) - FIXED: Changed class to className */}
-              <div>
-                <div className="text-3xl font-bold" style={{ color: ACCENT_COLOR }}>15+</div>
-                <p className="text-sm text-gray-200">Years Experience</p>
-              </div>
-              {/* Stats - Text Accent Color (98%) */}
-              <div>
-                <div className="text-3xl font-bold" style={{ color: ACCENT_COLOR }}>98%</div>
-                <p className="text-sm text-gray-200">Satisfaction Rate</p>
+              <div className="flex items-center gap-2 opacity-50">
+                <Globe size={16} className="text-[#004D40]" />
+                <span className="text-[9px] font-bold uppercase font-display tracking-widest text-[#004D40]">Regional Presence</span>
               </div>
             </div>
           </div>
 
-          <div className="relative h-96 md:h-full min-h-96 hero-content" style={{ animationDelay: "0.2s" }}>
-            {/* Floating Card 1 - Icon Background uses Deep Green Gradient */}
-            <div className="absolute top-10 right-10 bg-white/50 backdrop-blur-md rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-transform w-80">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(to bottom right, #006400, ${PRIMARY_COLOR})` }}>
-                  <span className="text-white text-xl">📚</span>
+          {/* Visual Wing - Minimized Thumbnail Height */}
+          <div className="relative flex items-center justify-center">
+            {!isVideoPlaying ? (
+              <div className="relative w-full max-w-[500px] animate-float" onClick={() => setIsVideoPlaying(true)}>
+                {/* Changed aspect-ratio to aspect-[3/2] for a shorter, medium height */}
+                <div className="relative z-10 aspect-[3/2] rounded-[2rem] overflow-hidden shadow-2xl border-[6px] border-white cursor-pointer group">
+                  <img 
+                    src="/Thambnail.png"
+                    alt="Training Impact"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#004D40]/30 via-transparent to-transparent flex items-center justify-center">
+                    <div className="bg-white/20 backdrop-blur-lg rounded-full p-5 border border-white/30 transform group-hover:scale-110 transition-transform duration-500">
+                      <Play size={24} className="text-white fill-white ml-0.5" />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-900">Training Excellence</h3>
-                  <p className="text-xs text-gray-600">Certified Programs</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-700">Industry-leading training with expert instructors</p>
-            </div>
 
-            {/* Floating Card 2 - Icon Background uses Deep Green Gradient */}
-            <div
-              className="absolute bottom-20 left-10 bg-white/50 backdrop-blur-md rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-transform w-80"
-              style={{ animationDelay: "0.4s" }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(to bottom right, #006400, ${PRIMARY_COLOR})` }}>
-                  <span className="text-white text-xl">🎯</span>
+                {/* Minimized Badge positioned relative to shorter thumbnail */}
+                
+                  
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-900">Proven Results</h3>
-                  <p className="text-xs text-gray-600">Measurable Impact</p>
-                </div>
+              
+            ) : (
+              <div className="relative w-full max-w-[600px] aspect-video rounded-[2rem] overflow-hidden shadow-2xl border-[6px] border-white bg-black z-20">
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&controls=1&rel=0&modestbranding=1`}
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                ></iframe>
+                <button 
+                  onClick={(e) => { e.stopPropagation(); setIsVideoPlaying(false); }}
+                  className="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full hover:bg-white/40"
+                >
+                  Close
+                </button>
               </div>
-              <p className="text-sm text-gray-700">Transform your team with lasting professional growth</p>
-            </div>
-
-            {/* Floating Card 3 - Icon Background uses Deep Green Gradient */}
-            <div
-              className="absolute top-1/2 right-0 bg-white/50 backdrop-blur-md rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-transform w-80"
-              style={{ animationDelay: "0.6s" }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(to bottom right, #006400, ${PRIMARY_COLOR})` }}>
-                  <span className="text-white text-xl">🌟</span>
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900">Expert Consultants</h3>
-                  <p className="text-xs text-gray-600">Specialized Services</p>
-                </div>
-              </div>
-              <p className="text-sm text-gray-700">Dedicated professionals supporting your success</p>
-            </div>
+            )}
           </div>
         </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-        {backgroundImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === currentImageIndex ? "bg-white w-8" : "bg-white/40 hover:bg-white/60"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </section>
   )

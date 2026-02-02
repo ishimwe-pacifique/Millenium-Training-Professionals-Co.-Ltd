@@ -10,48 +10,42 @@ const testimonials = [
   {
     name: "James Mutua",
     role: "HR Director, Tech Solutions Ltd",
-    content:
-      "Millennium Training transformed our management team's approach to leadership. The practical tools and insights have directly improved our team's performance and engagement.",
+    content: "Millennium Training transformed our management team's approach to leadership. The practical tools and insights have directly improved our team's performance and engagement.",
     rating: 5,
     initials: "JM",
   },
   {
     name: "Sarah Mbatha",
     role: "Managing Partner, Legal Consulting Group",
-    content:
-      "The customized consulting services provided by Millennium helped us restructure our business strategy. Their expertise in governance and professional development is unmatched.",
+    content: "The customized consulting services provided by Millennium helped us restructure our business strategy. Their expertise in governance and professional development is unmatched.",
     rating: 5,
     initials: "SM",
   },
   {
     name: "David Kamanzi",
     role: "CEO, Manufacturing Enterprise",
-    content:
-      "We've trained over 100 employees with Millennium. The quality of facilitation and relevance of content to our industry needs is exceptional.",
+    content: "We've trained over 100 employees with Millennium. The quality of facilitation and relevance of content to our industry needs is exceptional.",
     rating: 5,
     initials: "DK",
   },
   {
     name: "Catherine Mwangi",
     role: "Financial Services Manager",
-    content:
-      "The project management and strategic marketing workshops were eye-opening. Our team now approaches projects with renewed confidence and clarity.",
+    content: "The project management and strategic marketing workshops were eye-opening. Our team now approaches projects with renewed confidence and clarity.",
     rating: 5,
     initials: "CM",
   },
   {
     name: "Joseph Okonkwo",
     role: "Senior Executive, Regional Bank",
-    content:
-      "Millennium's executive coaching program elevated my leadership capabilities. I've seen measurable improvements in team dynamics and organizational outcomes.",
+    content: "Millennium's executive coaching program elevated my leadership capabilities. I've seen measurable improvements in team dynamics and organizational outcomes.",
     rating: 5,
     initials: "JO",
   },
   {
     name: "Amelia Foster",
     role: "Founder, Business Development Consulting",
-    content:
-      "The training programs are professionally designed and flexibly delivered. Whether in-person or virtual, Millennium ensures excellent engagement and results.",
+    content: "The training programs are professionally designed and flexibly delivered. Whether in-person or virtual, Millennium ensures excellent engagement and results.",
     rating: 5,
     initials: "AF",
   },
@@ -78,70 +72,56 @@ export function Testimonials() {
   }, [isPaused]);
 
   return (
-    <section className="py-20 md:py-32 bg-white">
+    <section className="py-12 md:py-20 bg-white font-sans">
+      {/* Font Loading */}
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap');
+        .font-display { font-family: 'Montserrat', sans-serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+      `}</style>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: PRIMARY_COLOR }}>What Our Clients Say</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Hear from professionals and organizations who have transformed their excellence through our training and
-            consulting services
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl font-extrabold mb-2 font-display uppercase tracking-tight" style={{ color: PRIMARY_COLOR }}>
+            What Our Clients Say
+          </h2>
+          <p className="text-sm text-gray-500 max-w-2xl mx-auto font-medium">
+            Hear from professionals who have transformed their excellence through our services.
           </p>
         </div>
 
         {/* Testimonials Slider */}
-        <div className="overflow-hidden mb-16">
-          <div ref={scrollRef} className="flex gap-6 overflow-x-hidden cursor-pointer" onClick={() => setIsPaused(!isPaused)}>
+        <div className="overflow-hidden mb-12">
+          <div ref={scrollRef} className="flex gap-4 overflow-x-hidden cursor-pointer py-4" onClick={() => setIsPaused(!isPaused)}>
             {[...testimonials, ...testimonials].map((testimonial, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-96 bg-white border rounded-xl p-8 hover:shadow-lg transition-shadow"
-                style={{ borderColor: '#e5e7eb' }}
+                className="flex-shrink-0 w-80 bg-white border rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-300"
+                style={{ borderColor: '#f3f4f6' }}
               >
                 {/* Rating */}
-                <div className="flex gap-1 mb-4">
+                <div className="flex gap-1 mb-3">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} size={16} className="fill-current" style={{ color: ACCENT_COLOR }} />
+                    <Star key={i} size={12} className="fill-current" style={{ color: ACCENT_COLOR }} />
                   ))}
                 </div>
 
                 {/* Content */}
-                <p className="text-gray-600 mb-6 leading-relaxed">"{testimonial.content}"</p>
+                <p className="text-xs text-gray-600 mb-5 leading-relaxed italic font-medium">"{testimonial.content}"</p>
 
                 {/* Author */}
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm text-white" style={{ backgroundColor: PRIMARY_COLOR }}>
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-[10px] text-white shadow-inner" style={{ backgroundColor: PRIMARY_COLOR }}>
                     {testimonial.initials}
                   </div>
                   <div>
-                    <p className="font-semibold" style={{ color: PRIMARY_COLOR }}>{testimonial.name}</p>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                    <p className="text-xs font-bold font-display uppercase tracking-wide" style={{ color: PRIMARY_COLOR }}>{testimonial.name}</p>
+                    <p className="text-[10px] text-gray-400 font-semibold">{testimonial.role}</p>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        <div className="rounded-2xl border p-12" style={{ backgroundColor: `${PRIMARY_COLOR}0D`, borderColor: '#e5e7eb' }}>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold mb-2" style={{ color: PRIMARY_COLOR }}>500+</div>
-              <p className="text-gray-600">Professionals Trained</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2" style={{ color: PRIMARY_COLOR }}>98%</div>
-              <p className="text-gray-600">Satisfaction Rate</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2" style={{ color: PRIMARY_COLOR }}>150+</div>
-              <p className="text-gray-600">Corporate Clients</p>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2" style={{ color: PRIMARY_COLOR }}>15+</div>
-              <p className="text-gray-600">Years in Business</p>
-            </div>
           </div>
         </div>
       </div>
