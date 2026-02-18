@@ -307,7 +307,7 @@ export function Header() {
 
               {/* General links */}
               {/* <a href="/#services" onClick={handleNavClick} className={`block text-[#004D40] py-3 font-extrabold text-sm uppercase tracking-widest border-b border-gray-100`}>Services</a> */}
-              <a href="/#about" onClick={handleNavClick} className={`block text-[#004D40] py-3 font-extrabold text-sm uppercase tracking-widest border-b border-gray-100`}>About</a>
+              <Link href="/Blog" onClick={handleNavClick} className={`block text-[#004D40] py-3 font-extrabold text-sm uppercase tracking-widest border-b border-gray-100`}>Blog</Link>
               <Link href="/contact" onClick={handleNavClick} className={`block text-[#004D40] py-3 font-extrabold text-sm uppercase tracking-widest border-b border-gray-100`}>Contact</Link>
               
               {/* Enrollment Button - Mobile (Transparent, using new green) */}
