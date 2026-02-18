@@ -110,7 +110,7 @@ export function Events() {
   };
 
   return (
-    <section className="relative py-24 bg-white overflow-hidden font-sans">
+    <section id="events-section" className="relative py-24 bg-white overflow-hidden font-sans">
       {/* Background Polish */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-[#004D40]/5 -skew-x-12 transform origin-top translate-x-20 z-0"></div>
 

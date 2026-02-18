@@ -118,7 +118,7 @@ export function Header() {
           <div className="relative group">
             {/* Text hover color uses the deep green */}
             <button className={`text-white hover:text-white/80 transition-colors font-bold px-3 py-2 flex items-center gap-1 rounded-md hover:bg-white/10 text-[10px] uppercase tracking-widest`}>
-              Consultation
+              Consultancy
               <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
             </button>
             {/* Desktop Dropdown Menu 3 (70% Transparent) */}

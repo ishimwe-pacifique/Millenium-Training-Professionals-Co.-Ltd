@@ -60,7 +60,10 @@ export function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <button className="bg-[#004D40] group px-8 py-3.5 rounded-xl hover:bg-[#004D40]/90 transition-all font-display font-bold text-[11px] uppercase tracking-widest text-white flex items-center justify-center gap-3 shadow-xl shadow-[#004D40]/20 active:scale-95">
+              <button 
+                onClick={() => document.getElementById('events-section')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-[#004D40] group px-8 py-3.5 rounded-xl hover:bg-[#004D40]/90 transition-all font-display font-bold text-[11px] uppercase tracking-widest text-white flex items-center justify-center gap-3 shadow-xl shadow-[#004D40]/20 active:scale-95"
+              >
                 Explore Programs <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </button>
               
