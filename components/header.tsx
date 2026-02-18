@@ -151,7 +151,7 @@ export function Header() {
           </div>
 
           {/* <a href="/#services" className="text-white hover:text-white/80 transition-colors font-semibold px-3 py-2 text-sm uppercase tracking-wide">Services</a> */}
-          <a href="/#about" className="text-white hover:text-white/80 transition-colors font-bold px-3 py-2 text-[10px] uppercase tracking-widest">About</a>
+          <a href="/Blog" className="text-white hover:text-white/80 transition-colors font-bold px-3 py-2 text-[10px] uppercase tracking-widest">Blog</a>
           <Link href="/contact" className="text-white hover:text-white/80 transition-colors font-bold px-3 py-2 text-[10px] uppercase tracking-widest">Contact</Link>
           {/* <Link href="/admin/login" className="text-white hover:text-white/80 transition-colors font-semibold px-3 py-2 text-sm uppercase tracking-wide">Admin</Link> */}
           
@@ -260,7 +260,7 @@ export function Header() {
                   onClick={() => toggleDropdown("consultation")}
                   className={`w-full text-left text-[#004D40] py-3 font-extrabold flex justify-between items-center text-sm uppercase tracking-widest border-b border-gray-100`}
                 >
-                  Consultation
+                 Consultancy
                   <ChevronDown
                     size={16}
                     className={`transition-transform ${openDropdown === "consultation" ? "rotate-180" : ""}`}
